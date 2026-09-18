@@ -8,6 +8,7 @@ public class Contact
     public string Birthday { get;private set;}
     public string Street { get;private set;}
     public string City { get;private set;}
+    
 
     public Contact(string firstName, string lastName, int mobile, string birthday, string street, string city)
     {

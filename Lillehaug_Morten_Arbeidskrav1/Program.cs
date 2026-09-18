@@ -10,47 +10,76 @@ class Program
         
         Phonebook phonebook = new Phonebook();
         phonebook.Load("../../../Data/phonebook.csv");
+        
 
-        // 0 should be the first === Geir, second is Kristin
-        Console.WriteLine(phonebook.Contacts[0].FirstName);
-        Console.WriteLine(phonebook.Contacts[1].FirstName);
         
+        LinearSearch.LinearSearchResult results = LinearSearch.LinearSearchMethod(
+            phonebook.Contacts,
+            Phonebook.Field.FirstName,
+            "Geir"
+        );
+
+        LinearSearch.LinearSearchResult results01 = LinearSearch.LinearSearchMethod(
+            phonebook.Contacts,
+            Phonebook.Field.FirstName,
+            "geir"
+        );
+
+        LinearSearch.LinearSearchResult results1 = LinearSearch.LinearSearchMethod(
+            phonebook.Contacts,
+            Phonebook.Field.LastName,
+            "bjerke"
+        );
+
+        LinearSearch.LinearSearchResult results2 = LinearSearch.LinearSearchMethod(
+            phonebook.Contacts,
+            Phonebook.Field.Mobile,
+            "49572808"
+        );
+
+        LinearSearch.LinearSearchResult results3 = LinearSearch.LinearSearchMethod(
+            phonebook.Contacts,
+            Phonebook.Field.Mobile,
+            "49572808242435534343"
+        );
         
-        // Testing console loggin the whole csv file:
-        for (int i = 0; i < phonebook.Contacts.Length; i++)
+        Console.WriteLine("== FIRST NAME RESULT == ");
+        foreach (Contact contact in results.Results)
         {
-            Console.WriteLine(phonebook.Contacts[i].FirstName);
+            Console.WriteLine(contact.FirstName);
         }
+        Console.WriteLine(results.Comparisons);
         
-
-        /*int result = LinearSearch.LinearSearchMethod(filePath, "Geir");*/
-        
-        /*foreach (string line in lines)
-
+        Console.WriteLine("== FIRST NAME CASE INSENSITIVE RESULT == ");
+        foreach (Contact contact in results01.Results)
         {
-
-            Console.WriteLine(line);
-
-        }*/
+            Console.WriteLine(contact.FirstName);
+        }
+        Console.WriteLine(results01.Comparisons);
         
-        
-        
-
-        /*foreach (string part in parts)
+        Console.WriteLine("== LAST NAME RESULT == ");
+        foreach (Contact contact in results1.Results)
         {
-            Console.WriteLine(part);
-        }*/
-
+            Console.WriteLine(contact.FirstName + " " + contact.LastName);
+        }
+        Console.WriteLine(results01.Comparisons);
         
+        Console.WriteLine("== MOBILE RESULT == ");
+        foreach (Contact contact in results2.Results)
+        {
+            Console.WriteLine(contact.FirstName + " " + contact.LastName + " " + contact.Mobile);
+        }
+        Console.WriteLine(results2.Comparisons);
         
-        /*Console.WriteLine(contactTest.FirstName);
-        Console.WriteLine(contactTest.LastName);
-        Console.WriteLine(contactTest.Mobile);
-        Console.WriteLine(contactTest.Birthday);
-        Console.WriteLine(contactTest.Street);
-        Console.WriteLine(contactTest.City);#1#*/
-
+        Console.WriteLine("== Empty result == ");
+        foreach (Contact contact in results3.Results)
+        {
+            Console.WriteLine(contact.FirstName + " " + contact.LastName + " " + contact.Mobile);
+            
+        }
+        Console.WriteLine(results3.Comparisons);
         
+ 
 
         // --------------------------------
         // Question 1 - Linear Search
@@ -59,8 +88,6 @@ class Program
         // --------------------------------
         // Question 3 - Binary Search
         // --------------------------------
-
-
     }
 
 }
