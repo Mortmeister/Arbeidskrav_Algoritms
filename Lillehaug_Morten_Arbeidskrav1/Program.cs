@@ -12,7 +12,7 @@ class Program
         phonebook.Load("../../../Data/phonebook.csv");
         
 
-        
+
         LinearSearch.LinearSearchResult results = LinearSearch.LinearSearchMethod(
             phonebook.Contacts,
             Phonebook.Field.FirstName,
@@ -80,7 +80,37 @@ class Program
         Console.WriteLine(results3.Comparisons);
         
  
+        Console.WriteLine("SORT TEST");
+        Sorting.SortResult sortResult = Sorting.BubbleSort(
+            phonebook.Contacts,
+            Phonebook.Field.FirstName,
+            Phonebook.SortOrder.Ascending
+        );
 
+        Console.WriteLine($"Comparisons: {sortResult.Comparisons}");
+        Console.WriteLine($"Swaps: {sortResult.Swaps}");
+
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine(phonebook.Contacts[i].FirstName);
+        }
+ 
+        Console.WriteLine("SORT TEST");
+        Sorting.SortResult sortResult2 = Sorting.BubbleSort(
+            phonebook.Contacts,
+            Phonebook.Field.Mobile,
+            Phonebook.SortOrder.Ascending
+        );
+
+        Console.WriteLine($"Comparisons: {sortResult2.Comparisons}");
+        Console.WriteLine($"Swaps: {sortResult2.Swaps}");
+
+        for (int i = 0; i < 10; i++)
+        {
+            Console.WriteLine(phonebook.Contacts[i].Mobile);
+        }
+
+ 
         // --------------------------------
         // Question 1 - Linear Search
         // --------------------------------

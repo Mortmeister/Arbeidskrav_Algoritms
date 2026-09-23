@@ -42,8 +42,8 @@ public class LinearSearch
                  {
                      
                      results.Add(contact);
-                     comparisons++;
                  }
+                 comparisons++;
              } 
              break;
          case Phonebook.Field.Mobile:
@@ -56,8 +56,8 @@ public class LinearSearch
                  if (value == target)
                  {
                      results.Add(contact);
-                     comparisons++;
                  }
+                 comparisons++;
             } 
             break;
          default:
@@ -73,4 +73,3 @@ public class LinearSearch
         };
     }
 }
-
