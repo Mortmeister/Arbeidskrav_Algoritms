@@ -2,73 +2,40 @@ namespace Lillehaug_Morten_Arbeidskrav1.Algorithms;
 
 public class LinearSearch
 {
-    public class LinearSearchResult
+    public class LinearSearchResult<T>
     {
-        public Contact[] Results { get; set; }
+        public T[] Results { get; set; }
         public int Comparisons { get; set; }
     }
-    
-    /* I should be able to search through the ENUM : firstName, lastName, Mobile*/
-    
-    public static LinearSearchResult LinearSearchMethod(Contact[] arr, Phonebook.Field field, string target)
+
+    /// <summary>
+    /// Searches an array sequentially for all elements matching the target condition.
+    /// Time complexity: O(n).
+    /// Space complexity: O(n) in the worst case.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to search.</param>
+    /// <param name="matches">A function that determines whether an element matches.</param>
+    /// <returns>All matching elements and the number of comparisons performed.</returns>
+    public static LinearSearchResult<T> LinearSearchMethod<T>(
+        T[] arr,
+        Func<T, bool> matches)
     {
-        string value;
-        List<Contact> results = new List<Contact>();
+        List<T> results = new List<T>();
         int comparisons = 0;
-        
-        switch (field)
+
+        for (int i = 0; i < arr.Length; i++)
         {
-         case Phonebook.Field.FirstName:
-             for (int i = 0; i < arr.Length; i++)
-             {
-                 Contact contact = arr[i];
-                 value = contact.FirstName;
-                 
-                 if (value.ToLower() == target.ToLower())
-                 {
-                     results.Add(contact);
-                 }
-                 comparisons++;
-             }
-             break;
-         case Phonebook.Field.LastName:
-             for (int i = 0; i < arr.Length; i++)
-             {
-                 Contact contact = arr[i];
-                 value = contact.LastName;
-                 
-                 
-                 if (value.ToLower() == target.ToLower())
-                 {
-                     
-                     results.Add(contact);
-                 }
-                 comparisons++;
-             } 
-             break;
-         case Phonebook.Field.Mobile:
-            for (int i = 0; i < arr.Length; i++)
+            comparisons++;
+            if (matches(arr[i]))
             {
-                 Contact contact = arr[i];
-                 value = contact.Mobile.ToString();
-                 
-                 
-                 if (value == target)
-                 {
-                     results.Add(contact);
-                 }
-                 comparisons++;
-            } 
-            break;
-         default:
-             throw new ArgumentException("Please select a valid field"); 
+                results.Add(arr[i]);
+            }
         }
-        Contact[] resultArray = results.ToArray();
-        
-        
-        return new LinearSearchResult
+
+        return new LinearSearchResult<T>
         {
-            Results = resultArray, 
+            Results = results.ToArray(),
             Comparisons = comparisons
         };
     }

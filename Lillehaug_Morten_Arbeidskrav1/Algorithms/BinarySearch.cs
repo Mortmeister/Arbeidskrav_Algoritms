@@ -7,11 +7,10 @@ public class BinarySearch
         public int Index { get; set; }
         public int Comparisons { get; set; }
     }
-    
-    public static SearchResult BinarySearchMethod(
-        Contact[] arr,
-        Phonebook.Field field,
-        string target)
+
+    public static SearchResult BinarySearchMethod<T>(
+        T[] arr,
+        Func<T, int> compare)
     {
         int left = 0;
         int right = arr.Length - 1;
@@ -23,11 +22,7 @@ public class BinarySearch
 
             comparisons++;
 
-            int result = Compare(
-                arr[middle],
-                field,
-                target
-            );
+            int result = compare(arr[middle]);
 
             if (result == 0)
             {
@@ -41,11 +36,7 @@ public class BinarySearch
 
                     comparisons++;
 
-                    int newResult = Compare(
-                        arr[newMiddle],
-                        field,
-                        target
-                    );
+                    int newResult = compare(arr[newMiddle]);
 
                     if (newResult == 0)
                     {
@@ -84,38 +75,5 @@ public class BinarySearch
             Index = -1,
             Comparisons = comparisons
         };
-    }
-    
-    private static int Compare(
-        Contact contact,
-        Phonebook.Field field,
-        string target)
-    {
-        switch (field)
-        {
-            case Phonebook.Field.FirstName:
-                return string.Compare(
-                    contact.FirstName,
-                    target,
-                    StringComparison.OrdinalIgnoreCase
-                );
-
-            case Phonebook.Field.LastName:
-                return string.Compare(
-                    contact.LastName,
-                    target,
-                    StringComparison.OrdinalIgnoreCase
-                );
-
-            case Phonebook.Field.Mobile:
-                return string.Compare(
-                    contact.Mobile.ToString(),
-                    target,
-                    StringComparison.Ordinal
-                );
-
-            default:
-                throw new ArgumentException("Invalid field.");
-        }
     }
 }

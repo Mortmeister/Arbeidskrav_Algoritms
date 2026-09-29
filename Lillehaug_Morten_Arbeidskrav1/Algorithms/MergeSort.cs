@@ -7,11 +7,10 @@ public class MergeSort
         public int Comparisons { get; set; }
         public int Moves { get; set; }
     }
-    
-    public static SortResult MergeSortMethod(
-        Contact[] arr,
-        Phonebook.Field field,
-        Phonebook.SortOrder order)
+
+    public static SortResult MergeSortMethod<T>(
+        T[] arr,
+        Comparison<T> comparison)
     {
         int comparisons = 0;
         int moves = 0;
@@ -25,15 +24,14 @@ public class MergeSort
             };
         }
 
-        Contact[] temp = new Contact[arr.Length];
+        T[] temp = new T[arr.Length];
 
         MergeSortRecursive(
             arr,
             temp,
             0,
             arr.Length - 1,
-            field,
-            order,
+            comparison,
             ref comparisons,
             ref moves
         );
@@ -44,13 +42,13 @@ public class MergeSort
             Moves = moves
         };
     }
-    private static void MergeSortRecursive(
-        Contact[] arr,
-        Contact[] temp,
+
+    private static void MergeSortRecursive<T>(
+        T[] arr,
+        T[] temp,
         int left,
         int right,
-        Phonebook.Field field,
-        Phonebook.SortOrder order,
+        Comparison<T> comparison,
         ref int comparisons,
         ref int moves)
     {
@@ -66,8 +64,7 @@ public class MergeSort
             temp,
             left,
             middle,
-            field,
-            order,
+            comparison,
             ref comparisons,
             ref moves
         );
@@ -77,8 +74,7 @@ public class MergeSort
             temp,
             middle + 1,
             right,
-            field,
-            order,
+            comparison,
             ref comparisons,
             ref moves
         );
@@ -89,20 +85,19 @@ public class MergeSort
             left,
             middle,
             right,
-            field,
-            order,
+            comparison,
             ref comparisons,
             ref moves
         );
     }
-    private static void Merge(
-        Contact[] arr,
-        Contact[] temp,
+
+    private static void Merge<T>(
+        T[] arr,
+        T[] temp,
         int left,
         int middle,
         int right,
-        Phonebook.Field field,
-        Phonebook.SortOrder order,
+        Comparison<T> comparison,
         ref int comparisons,
         ref int moves)
     {
@@ -114,7 +109,7 @@ public class MergeSort
         {
             comparisons++;
 
-            if (Sorting.Compare(arr[i], arr[j], field, order) <= 0)
+            if (comparison(arr[i], arr[j]) <= 0)
             {
                 temp[k] = arr[i];
                 i++;
