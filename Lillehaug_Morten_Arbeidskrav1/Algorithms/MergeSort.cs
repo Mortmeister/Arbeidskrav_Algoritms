@@ -1,13 +1,41 @@
 namespace Lillehaug_Morten_Arbeidskrav1.Algorithms;
 
+/// <summary>
+/// Provides a generic Merge Sort implementation that sorts an array in place
+/// using a temporary buffer during the merge operation.
+/// </summary>
 public class MergeSort
 {
+    /// <summary>
+    /// Stores the number of comparisons and moves performed during sorting.
+    /// </summary>
     public class SortResult
     {
+        /// <summary>
+        /// Gets or sets the number of element comparisons performed.
+        /// </summary>
         public int Comparisons { get; set; }
+        /// <summary>
+        /// Gets or sets the number of element moves performed.
+        /// </summary>
         public int Moves { get; set; }
     }
-
+    /// <summary>
+    /// Sorts the specified array using the Merge Sort algorithm.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="arr">The array to sort.</param>
+    /// <param name="comparison">
+    /// A comparison function that determines the ordering of two elements.
+    /// </param>
+    /// <returns>
+    /// A <see cref="SortResult"/> containing the number of comparisons and moves
+    /// performed during the sort.
+    /// </returns>
+    /// <remarks>
+    /// Merge Sort has O(n log n) time complexity in the best, average, and worst
+    /// cases. The algorithm uses O(n) additional space for the temporary buffer.
+    /// </remarks>Method<T>
     public static SortResult MergeSortMethod<T>(
         T[] arr,
         Comparison<T> comparison)

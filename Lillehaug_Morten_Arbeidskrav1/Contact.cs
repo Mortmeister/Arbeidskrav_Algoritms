@@ -21,4 +21,3 @@ public class Contact
     }
 }
 
-/*FirstName,LastName,Mobile,Birthday,Street,City*/
